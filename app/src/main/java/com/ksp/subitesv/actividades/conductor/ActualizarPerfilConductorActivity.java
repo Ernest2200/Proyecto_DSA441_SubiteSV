@@ -1,5 +1,4 @@
-
-package com.ksp.subitesv.actividades.cliente;
+package com.ksp.subitesv.actividades.conductor;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.FileUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,23 +26,29 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.ksp.subitesv.R;
+import com.ksp.subitesv.actividades.cliente.ActualizarPerfilActivity;
 import com.ksp.subitesv.includes.AppToolBar;
 import com.ksp.subitesv.modulos.Cliente;
+import com.ksp.subitesv.modulos.Conductor;
 import com.ksp.subitesv.proveedores.AuthProveedores;
 import com.ksp.subitesv.proveedores.ProveedorCliente;
+import com.ksp.subitesv.proveedores.ProveedorConductor;
 import com.ksp.subitesv.proveedores.ProveedorImagenes;
 import com.ksp.subitesv.utils.CompressorBitmapImage;
 import com.ksp.subitesv.utils.FileUtil;
 
 import java.io.File;
 
-public class ActualizarPerfilActivity extends AppCompatActivity {
+public class ActualizarPerfilConductorActivity extends AppCompatActivity {
+
 
     private ImageView mImageViewPerfil;
     private Button mButtonActualizar;
     private TextView mTextViewNombre;
+    private TextView mTextMarcaVehiculo;
+    private TextView mTextViewPlacaVehiculo;
 
-    private ProveedorCliente mProveedorCliente;
+    private ProveedorConductor mProveedorConductor;
     private AuthProveedores mAuthProveedor;
     private ProveedorImagenes mProveedorImagenes;
     private File mImagenFile;
@@ -52,23 +56,27 @@ public class ActualizarPerfilActivity extends AppCompatActivity {
     private final int GALERIA_REQUEST = 1;
     private ProgressDialog mProgressDialog;
     private String mNombre;
+    private String mMarcaVehiculo;
+    private String mPlacaVehiculo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_actualizar_perfil);
+        setContentView(R.layout.activity_actualizar_perfil_conductor);
         AppToolBar.mostrar(this, "Actualizar Perfil", true);
 
         mImageViewPerfil = findViewById(R.id.imagenViewPerfil);
         mButtonActualizar = findViewById(R.id.btnActualizarPerfil);
         mTextViewNombre = findViewById(R.id.txtNombreRegistro);
+        mTextMarcaVehiculo = findViewById(R.id.TxtMarcaVehiculo);
+        mTextViewPlacaVehiculo =findViewById(R.id.TxtPlacaVehiculo);
 
-        mProveedorCliente = new ProveedorCliente();
+        mProveedorConductor = new ProveedorConductor();
         mAuthProveedor = new AuthProveedores();
         mProgressDialog = new ProgressDialog(this);
-        mProveedorImagenes = new ProveedorImagenes("client_images");
+        mProveedorImagenes = new ProveedorImagenes("driver_images");
 
-        obtenerInformacionCliente();
+        obtenerInformacionConductor();
 
         mImageViewPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,13 +117,17 @@ public class ActualizarPerfilActivity extends AppCompatActivity {
         }
     }
 
-    private void obtenerInformacionCliente(){
-        mProveedorCliente.obtenerCLiente(mAuthProveedor.obetenerId()).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void obtenerInformacionConductor(){
+        mProveedorConductor.obtenerConductor(mAuthProveedor.obetenerId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     String nombre = snapshot.child("nombre").getValue().toString();
+                    String marcaVehiculo= snapshot.child("marcaVehiculo").getValue().toString();
+                    String placaVehiculo = snapshot.child("placaVehiculo").getValue().toString();
                     mTextViewNombre.setText(nombre);
+                    mTextMarcaVehiculo.setText(marcaVehiculo);
+                    mTextViewPlacaVehiculo.setText(placaVehiculo);
                 }
             }
 
@@ -129,6 +141,9 @@ public class ActualizarPerfilActivity extends AppCompatActivity {
 
     private void actulizarPerfil() {
         mNombre = mTextViewNombre.getText().toString();
+        mMarcaVehiculo = mTextMarcaVehiculo.getText().toString();
+        mPlacaVehiculo = mTextViewPlacaVehiculo.getText().toString();
+
         if (!mNombre.equals("") && mImagenFile != null) {
             mProgressDialog.setMessage("Espere un momento...");
             mProgressDialog.setCanceledOnTouchOutside(false);
@@ -136,38 +151,41 @@ public class ActualizarPerfilActivity extends AppCompatActivity {
 
             guardarImagen();
         }
-       else{
+        else{
             Toast.makeText(this, "Ingresa la imagen y el nombre", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void guardarImagen() {
-       mProveedorImagenes.guardarImagen(ActualizarPerfilActivity.this,mImagenFile,mAuthProveedor.obetenerId()).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+       mProveedorImagenes.guardarImagen(ActualizarPerfilConductorActivity.this,mImagenFile,mAuthProveedor.obetenerId()).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()) {
-                   mProveedorImagenes.obtenerStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    mProveedorImagenes.obtenerStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             String image = uri.toString();
-                            Cliente client = new Cliente();
-                            client.setImagen(image);
-                            client.setNombre(mNombre);
-                            client.setId(mAuthProveedor.obetenerId());
-                            mProveedorCliente.actualizar(client).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            Conductor conductor = new Conductor();
+                            conductor.setImagen(image);
+                            conductor.setNombre(mNombre);
+                            conductor.setId(mAuthProveedor.obetenerId());
+                            conductor.setMarcaVehiculo(mMarcaVehiculo);
+                            conductor.setPlacaVehiculo(mPlacaVehiculo);
+                            mProveedorConductor.actualizar(conductor).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     mProgressDialog.dismiss();
-                                    Toast.makeText(ActualizarPerfilActivity.this, "Su informacion se actualizo correctamente", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ActualizarPerfilConductorActivity.this, "Su informacion se actualizo correctamente", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
                     });
                 }
                 else {
-                    Toast.makeText(ActualizarPerfilActivity.this, "Hubo un error al subir la imagen", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActualizarPerfilConductorActivity.this, "Hubo un error al subir la imagen", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
 }

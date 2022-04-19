@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.ksp.subitesv.R;
 import com.ksp.subitesv.actividades.MainActivity;
+import com.ksp.subitesv.actividades.cliente.ActualizarPerfilActivity;
 import com.ksp.subitesv.actividades.cliente.MapClienteActivity;
 import com.ksp.subitesv.includes.AppToolBar;
 import com.ksp.subitesv.proveedores.AuthProveedores;
@@ -313,6 +314,10 @@ public class MapaConductorActivity extends AppCompatActivity implements OnMapRea
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_cerrarSesion) {
             cerrarSesion();
+        }
+        if (item.getItemId() == R.id.action_actualizar) {
+            Intent intent = new Intent(MapaConductorActivity.this, ActualizarPerfilConductorActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
