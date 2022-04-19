@@ -35,6 +35,7 @@ import com.ksp.subitesv.proveedores.ProveedorCliente;
 import com.ksp.subitesv.proveedores.ProveedorImagenes;
 import com.ksp.subitesv.utils.CompressorBitmapImage;
 import com.ksp.subitesv.utils.FileUtil;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -115,6 +116,11 @@ public class ActualizarPerfilActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     String nombre = snapshot.child("nombre").getValue().toString();
+                    String imagen = "";
+                    if(snapshot.hasChild("imagen")){
+                        imagen = snapshot.child("imagen").getValue().toString();
+                        Picasso.with(ActualizarPerfilActivity.this).load(imagen).into(mImageViewPerfil);
+                    }
                     mTextViewNombre.setText(nombre);
                 }
             }

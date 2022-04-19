@@ -36,6 +36,7 @@ import com.ksp.subitesv.proveedores.ProveedorConductor;
 import com.ksp.subitesv.proveedores.ProveedorImagenes;
 import com.ksp.subitesv.utils.CompressorBitmapImage;
 import com.ksp.subitesv.utils.FileUtil;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -125,6 +126,11 @@ public class ActualizarPerfilConductorActivity extends AppCompatActivity {
                     String nombre = snapshot.child("nombre").getValue().toString();
                     String marcaVehiculo= snapshot.child("marcaVehiculo").getValue().toString();
                     String placaVehiculo = snapshot.child("placaVehiculo").getValue().toString();
+                    String imagen = "";
+                    if(snapshot.hasChild("imagen")){
+                        imagen = snapshot.child("imagen").getValue().toString();
+                        Picasso.with(ActualizarPerfilConductorActivity.this).load(imagen).into(mImageViewPerfil);
+                    }
                     mTextViewNombre.setText(nombre);
                     mTextMarcaVehiculo.setText(marcaVehiculo);
                     mTextViewPlacaVehiculo.setText(placaVehiculo);
