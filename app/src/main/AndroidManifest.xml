@@ -2,10 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ksp.subitesv">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,6 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SubiteSV">
+        <activity
+            android:name=".actividades.cliente.ActualizarPerfilActivity" android:parentActivityName=".actividades.cliente.MapClienteActivity"
+            android:exported="false" />
         <activity
             android:name=".actividades.conductor.NotificacionReservaActivity"
             android:exported="false" />
@@ -55,9 +65,6 @@
             android:exported="false" />
         <activity
             android:name=".actividades.cliente.MapClienteActivity"
-            android:exported="false" />
-
-            android:name=".actividades.conductor.RegistroConductorActivity"
             android:exported="false" />
         <activity
             android:name=".actividades.MainActivity"
