@@ -20,6 +20,12 @@ public class ProveedorCliente {
         map.put("correo",cliente.getCorreo());
         return  mBasedeDatos.child(cliente.getId()).setValue(map);
     }
+    public Task<Void> actualizar(Cliente cliente){
+        Map<String, Object> map = new HashMap<>();
+        map.put("nombre", cliente.getNombre());
+        map.put("imagen",cliente.getImagen());
+        return  mBasedeDatos.child(cliente.getId()).updateChildren(map);
+    }
 
     public DatabaseReference obtenerCLiente(String clienteId) {
         return mBasedeDatos.child(clienteId);

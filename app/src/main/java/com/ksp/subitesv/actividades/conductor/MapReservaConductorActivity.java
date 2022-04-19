@@ -22,6 +22,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +61,7 @@ import com.ksp.subitesv.proveedores.ProveedorGeoFire;
 import com.ksp.subitesv.proveedores.ReservaClienteProveedor;
 import com.ksp.subitesv.proveedores.TokenProveedor;
 import com.ksp.subitesv.utils.DecodificadorPuntos;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -97,6 +99,7 @@ public class MapReservaConductorActivity extends AppCompatActivity implements On
     private TextView mTextViewEmailReservaCliente;
     private TextView mTextViewOrigenReservaCliente;
     private TextView mTextViewDestinoReservaCliente;
+    private ImageView mImageViewReservaCliente;
 
     private String mExtraClienteId;
 
@@ -173,6 +176,7 @@ public class MapReservaConductorActivity extends AppCompatActivity implements On
         mTextViewDestinoReservaCliente = findViewById(R.id.textViewDestinoReservaCliente);
         mButtonIniciarReserva=findViewById(R.id.btnComezarReserva);
         mButtonTerminarReserva=findViewById(R.id.btnTerminarReserva);
+        mImageViewReservaCliente = findViewById(R.id.imageViewReservaCliente);
 
         //mButtonIniciarReserva.setEnabled(false);
 
@@ -319,6 +323,11 @@ public class MapReservaConductorActivity extends AppCompatActivity implements On
                 if (snapshot.exists()){
                     String correo = snapshot.child("correo").getValue().toString();
                     String nombre = snapshot.child("nombre").getValue().toString();
+                    String imagen = "";
+                    if(snapshot.hasChild("imagen")){
+                        imagen = snapshot.child("imagen").getValue().toString();
+                        Picasso.with(MapReservaConductorActivity.this).load(imagen).into(mImageViewReservaCliente);
+                    }
                     mTextViewReservaCliente.setText(nombre);
                     mTextViewEmailReservaCliente.setText(correo);
                 }

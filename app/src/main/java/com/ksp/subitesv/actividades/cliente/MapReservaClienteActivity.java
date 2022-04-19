@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,6 +31,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.ksp.subitesv.R;
+import com.ksp.subitesv.actividades.conductor.MapReservaConductorActivity;
 import com.ksp.subitesv.proveedores.AuthProveedores;
 import com.ksp.subitesv.proveedores.GoogleApiProveedor;
 import com.ksp.subitesv.proveedores.ProveedorConductor;
@@ -37,6 +39,7 @@ import com.ksp.subitesv.proveedores.ProveedorGeoFire;
 import com.ksp.subitesv.proveedores.ReservaClienteProveedor;
 import com.ksp.subitesv.proveedores.TokenProveedor;
 import com.ksp.subitesv.utils.DecodificadorPuntos;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -71,6 +74,7 @@ public class MapReservaClienteActivity extends AppCompatActivity implements OnMa
     private TextView mTextViewOrigenReservaCliente;
     private TextView mTextViewDestinoReservaCliente;
     private TextView mTextViewEstadoReservaCliente;
+    private ImageView mImageViewReservaCliente;
 
     private GoogleApiProveedor mGoogleApiProvider;
     private List<LatLng> mPolylineList;
@@ -105,6 +109,7 @@ public class MapReservaClienteActivity extends AppCompatActivity implements OnMa
         mTextViewOrigenReservaCliente= findViewById(R.id.textViewOrigenReservaConductor);
         mTextViewDestinoReservaCliente = findViewById(R.id.textViewDestinoReservaConductor);
         mTextViewEstadoReservaCliente = findViewById(R.id.textViewEstadoReserva);
+        mImageViewReservaCliente = findViewById(R.id.imageViewReservaCliente);
 
         obtenerEstado();
         obtenerReservaCliente();
@@ -201,6 +206,11 @@ public class MapReservaClienteActivity extends AppCompatActivity implements OnMa
                 if (snapshot.exists()){
                   String nombre = snapshot.child("nombre").getValue().toString();
                   String correo = snapshot.child("correo").getValue().toString();
+                    String imagen = "";
+                    if(snapshot.hasChild("imagen")){
+                        imagen = snapshot.child("imagen").getValue().toString();
+                        Picasso.with(MapReservaClienteActivity.this).load(imagen).into(mImageViewReservaCliente);
+                    }
                   mTextViewReservaConductor.setText(nombre);
                   mTextViewEmailReservaConductor.setText(correo);
                 }

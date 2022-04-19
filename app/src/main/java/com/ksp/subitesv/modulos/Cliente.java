@@ -4,6 +4,7 @@ public class Cliente {
     String id;
     String nombre;
     String correo;
+    String imagen;
 
     public String getId() {
         return id;
@@ -33,5 +34,23 @@ public class Cliente {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
+    }
+
+    public Cliente() {
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public Cliente(String id, String nombre, String correo, String imagen) {
+        this.id = id;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.imagen = imagen;
     }
 }
