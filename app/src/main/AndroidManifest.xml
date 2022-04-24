@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ksp.subitesv">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -60,6 +61,10 @@
         <activity
             android:name=".actividades.cliente.SolicitarConductorActivity"
             android:exported="false" />
+        <activity
+            android:name=".actividades.conductor.RegistroConductorActivity"
+            android:exported="false"
+            tools:ignore="MissingClass" />
         <activity
             android:name=".actividades.cliente.DetallesSolicitudActivity"
             android:exported="false" />
