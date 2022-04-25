@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -134,8 +135,14 @@ public class MapaConductorActivity extends AppCompatActivity implements OnMapRea
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mLocationCallback != null && mFusedLocation != null) {
+            mFusedLocation.removeLocationUpdates(mLocationCallback);
+        }
+
         if (mListener!=null){
-            mProveedorGeofire.isConductorTrabajando(mAuthProveedores.obetenerId()).removeEventListener(mListener);
+            if (mAuthProveedores.sesionExistente()) {
+                mProveedorGeofire.isConductorTrabajando(mAuthProveedores.obetenerId()).removeEventListener(mListener);
+            }
         }
     }
 
