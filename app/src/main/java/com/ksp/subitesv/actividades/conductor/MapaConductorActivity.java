@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.ksp.subitesv.R;
 import com.ksp.subitesv.actividades.MainActivity;
 import com.ksp.subitesv.actividades.cliente.ActualizarPerfilActivity;
+import com.ksp.subitesv.actividades.cliente.HistorialReservaClienteActivity;
 import com.ksp.subitesv.actividades.cliente.MapClienteActivity;
 import com.ksp.subitesv.includes.AppToolBar;
 import com.ksp.subitesv.proveedores.AuthProveedores;
@@ -324,6 +325,10 @@ public class MapaConductorActivity extends AppCompatActivity implements OnMapRea
         }
         if (item.getItemId() == R.id.action_actualizar) {
             Intent intent = new Intent(MapaConductorActivity.this, ActualizarPerfilConductorActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.action_Historial) {
+            Intent intent = new Intent(MapaConductorActivity.this, HistorialReservaConductorActivity.class);
             startActivity(intent);
         }
 
