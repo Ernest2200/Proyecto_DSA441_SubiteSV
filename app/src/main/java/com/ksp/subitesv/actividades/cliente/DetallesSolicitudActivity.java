@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,11 +61,13 @@ public class DetallesSolicitudActivity extends AppCompatActivity implements OnMa
 
     private String mExtraOrigin;
     private String mExtraDestination;
+
+    private CircleImageView mCircleImageAtras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalles_solicitud);
-        AppToolBar.mostrar(this, "TUS DATOS", true);
+       // AppToolBar.mostrar(this, "TUS DATOS", true);
 
         mMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mMapFragment.getMapAsync(this);
@@ -91,10 +94,19 @@ public class DetallesSolicitudActivity extends AppCompatActivity implements OnMa
         mTextViewOrigin.setText(mExtraOrigin);
         mTextViewDestination.setText(mExtraDestination);
 
+        mCircleImageAtras=findViewById(R.id.imagenCicularAtras);
+
         mButtonRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToRequestDriver();
+            }
+        });
+
+        mCircleImageAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

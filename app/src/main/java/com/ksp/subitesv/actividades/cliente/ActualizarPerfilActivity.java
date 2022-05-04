@@ -39,6 +39,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ActualizarPerfilActivity extends AppCompatActivity {
 
     private ImageView mImageViewPerfil;
@@ -53,12 +55,13 @@ public class ActualizarPerfilActivity extends AppCompatActivity {
     private final int GALERIA_REQUEST = 1;
     private ProgressDialog mProgressDialog;
     private String mNombre;
+    private CircleImageView mCircleImageAtras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actualizar_perfil);
-        AppToolBar.mostrar(this, "Actualizar Perfil", true);
+        //AppToolBar.mostrar(this, "Actualizar Perfil", true);
 
         mImageViewPerfil = findViewById(R.id.imagenViewPerfil);
         mButtonActualizar = findViewById(R.id.btnActualizarPerfil);
@@ -68,7 +71,7 @@ public class ActualizarPerfilActivity extends AppCompatActivity {
         mAuthProveedor = new AuthProveedores();
         mProgressDialog = new ProgressDialog(this);
         mProveedorImagenes = new ProveedorImagenes("client_images");
-
+        mCircleImageAtras=findViewById(R.id.imagenCicularAtras);
         obtenerInformacionCliente();
 
         mImageViewPerfil.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +88,13 @@ public class ActualizarPerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 actulizarPerfil();
+            }
+        });
+
+        mCircleImageAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 

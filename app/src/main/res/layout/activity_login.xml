@@ -7,32 +7,55 @@
     android:fitsSystemWindows="true"
     tools:context=".actividades.LoginActivity">
 
-<include layout="@layout/barra_toolbar"></include>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/uber_logo"
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center"/>
+        <io.github.florent37.shapeofview.shapes.ArcView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:elevation="4dp"
+
+            app:shape_arc_height="20dp"
+            app:shape_arc_position="bottom"
+            >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimarioDark" />
+
+            <TextView
+                android:id="@+id/textViewNameBookingDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SubiteSV"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:layout_margin="50dp" />
+
+        </io.github.florent37.shapeofview.shapes.ArcView>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="10dp">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/icon_email" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/ic_email" />
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -59,13 +82,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/icon_password" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/ic_lock" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -96,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:text="INGRESAR"
                 android:background="@drawable/rounded_button"
-                app:backgroundTint="@color/anaranjado"
+                android:backgroundTint="@color/colorPrimary"
                 android:layout_margin="30dp"
                 android:textColor="@color/white" />
 
@@ -106,5 +132,23 @@
 
 
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/uber_logo"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center|top"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imagenCicularAtras"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_arrow_back2"
+        android:layout_gravity="left|top"
+        app:civ_circle_background_color="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

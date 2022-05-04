@@ -42,11 +42,30 @@
         <entry key="..\:/Users/Adonay Mejia/Documents/GitHub/Proyecto_DSA441_SubiteSV/app/src/main/res/layout/card_historial_reserva.xml" value="0.264" />
         <entry key="..\:/Users/Adonay Mejia/Documents/GitHub/Proyecto_DSA441_SubiteSV/app/src/main/res/menu/cliente_menu.xml" value="0.16" />
         <entry key="..\:/Users/Adonay Mejia/Documents/GitHub/Proyecto_DSA441_SubiteSV/app/src/main/res/menu/conductor_menu.xml" value="0.1" />
-        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_detalles_solicitud.xml" value="0.2" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/drawable/ic_arrow_back_black_24dp.xml" value="0.1065" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/drawable/ic_email.xml" value="0.1" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/drawable/ic_lock.xml" value="0.1" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/drawable/ic_map_black.xml" value="0.1065" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/drawable/ic_person_pin.xml" value="0.1065" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/drawable/ic_timer.xml" value="0.1" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/drawable/ic_timer_black.xml" value="0.1065" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/drawable/icon_car.xml" value="0.1065" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/drawable/icon_plate.xml" value="0.1065" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_actualizar_perfil.xml" value="0.1" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_actualizar_perfil_conductor.xml" value="0.1" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_calificacion_cliente.xml" value="0.11041666666666666" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_detalle_historial_reserva_cliente.xml" value="0.22327898550724637" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_detalle_historial_reserva_conductor.xml" value="0.22327898550724637" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_detalles_solicitud.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_historial_reserva_cliente.xml" value="0.22327898550724637" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_historial_reserva_conductor.xml" value="0.22327898550724637" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_main.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_map_reserva_cliente.xml" value="0.2" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_map_reserva_conductor.xml" value="0.22327898550724637" />
         <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_mapa_cliente.xml" value="0.1" />
         <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_mapa_conductor.xml" value="0.11302083333333333" />
-        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_notificacion_reserva.xml" value="0.16" />
+        <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_notificacion_reserva.xml" value="0.144" />
         <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_registro.xml" value="0.1" />
         <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/activity_solicitar_conductor.xml" value="0.1111111111111111" />
         <entry key="..\:/Users/ernes/AndroidStudioProjects/Proyecto_DSA441_SubiteSV-main/app/src/main/res/layout/barra_toolbar.xml" value="0.11302083333333333" />
