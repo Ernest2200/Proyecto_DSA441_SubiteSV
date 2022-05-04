@@ -30,3 +30,7 @@ Usted puede copiar, modificar, distribuir y realizar el trabajo, incluso con fin
 
 * [Tablero en Trello] https://trello.com/b/gEmv05px/proyecto-de-catedra-dsa441-fase-1
 * [Diseño Mock-ups] https://framer.com/projects/DSA-Android--xvJDeZ3woqKuo6nqXjwy-4YJJ5 **NOTA -- Para acceder a ver las pantallas se necesita registrarse.
+* [Video Funcionamiento Aplicacion] https://www.youtube.com/watch?v=x7mOmFA-pJ84
+* [Manual Tecnico] https://drive.google.com/file/d/1C6LRCc2KgW4a8EQXSH1miOCSfHJLvuUK/view?usp=sharing
+* [Manual de Usuario] https://drive.google.com/file/d/1EJ22JSNVJ-83CEF---lZbHCv_f9gzZPh/view?usp=sharing
+* [App FakeGPS para realizar pruebas] https://play.google.com/store/apps/details?id=com.lexa.fakegps

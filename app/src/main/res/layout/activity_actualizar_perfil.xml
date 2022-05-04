@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".actividades.LoginActivity">
+    tools:context=".actividades.cliente.ActualizarPerfilActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        >
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <io.github.florent37.shapeofview.shapes.ArcView
             android:layout_width="match_parent"
@@ -31,12 +32,13 @@
                 android:id="@+id/textViewNameBookingDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SubiteSV"
+                android:text="EDITAR PERFIL"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                android:layout_margin="50dp" />
+                android:layout_marginTop="20dp"
+                />
 
         </io.github.florent37.shapeofview.shapes.ArcView>
 
@@ -46,100 +48,58 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="80dp"
-            android:layout_marginBottom="10dp">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="15dp"
-                android:src="@drawable/ic_email" />
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                >
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/TxtCorreo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Correo electronico"
-                    android:inputType="textEmailAddress">
-
-                </com.google.android.material.textfield.TextInputEditText>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginLeft="20dp">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="15dp"
-                android:src="@drawable/ic_lock" />
+                android:src="@drawable/ic_person_pin" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/TxtContrasena"
+                    android:id="@+id/txtNombreRegistro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Contraseña"
-                    android:inputType="textPassword">
+                    android:hint="Nombre completo"
+                    android:inputType="text">
 
                 </com.google.android.material.textfield.TextInputEditText>
 
             </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="bottom">
-
-            <Button
-                android:id="@+id/BtnIniciarSesion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="INGRESAR"
-                android:background="@drawable/rounded_button"
-                android:backgroundTint="@color/colorPrimary"
-                android:layout_margin="30dp"
-                android:textColor="@color/white" />
 
         </LinearLayout>
-
-
-
 
     </LinearLayout>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imagenViewPerfil"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/uber_logo"
+        android:layout_gravity="center|top"
+        app:civ_border_width="5dp"
         android:layout_marginTop="120dp"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center|top"/>
+        app:civ_border_color="#F0F0F0"
+        android:src="@drawable/man"
+        />
+
+
+    <Button
+        android:id="@+id/btnActualizarPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ACTUALIZAR PERFIL"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/colorPrimarioDark"
+        android:layout_gravity="bottom"
+        android:layout_margin="20dp"
+        android:textColor="@color/white" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imagenCicularAtras"

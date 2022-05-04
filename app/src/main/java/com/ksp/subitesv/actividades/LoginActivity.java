@@ -23,6 +23,8 @@ import com.ksp.subitesv.actividades.conductor.MapaConductorActivity;
 import com.ksp.subitesv.actividades.conductor.RegistroConductorActivity;
 import com.ksp.subitesv.includes.AppToolBar;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText TxtCorreo, TxtContrasena;
@@ -30,16 +32,17 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mBasedeDatos;
     SharedPreferences mPref;
-
+    private CircleImageView mCircleImageAtras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        AppToolBar.mostrar(this, "Iniciar Sesion", true);
+       // AppToolBar.mostrar(this, "Iniciar Sesion", true);
 
         TxtContrasena = findViewById(R.id.TxtContrasena);
         TxtCorreo = findViewById(R.id.TxtCorreo);
         BtnIniciarSesion = findViewById(R.id.BtnIniciarSesion);
+        mCircleImageAtras=findViewById(R.id.imagenCicularAtras);
 
         mAuth = FirebaseAuth.getInstance();
         mBasedeDatos = FirebaseDatabase.getInstance().getReference();
@@ -49,6 +52,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 iniciarSesion();
+            }
+        });
+        mCircleImageAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 

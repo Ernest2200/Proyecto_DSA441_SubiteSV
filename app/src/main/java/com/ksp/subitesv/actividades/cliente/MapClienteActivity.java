@@ -449,7 +449,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.conductor_menu, menu);
+        getMenuInflater().inflate(R.menu.cliente_menu, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -458,6 +458,14 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_cerrarSesion) {
             cerrarSesion();
+        }
+        if (item.getItemId() == R.id.action_actualizar) {
+            Intent intent = new Intent(MapClienteActivity.this, ActualizarPerfilActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.action_Historial) {
+            Intent intent = new Intent(MapClienteActivity.this, HistorialReservaClienteActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

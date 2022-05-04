@@ -5,6 +5,18 @@ public class Conductor {
     String nombre;
     String correo;
     String marcaVehiculo;
+    String imagen;
+
+    public Conductor() {
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
 
     public String getId() {
         return id;

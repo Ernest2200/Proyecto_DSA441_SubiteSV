@@ -22,11 +22,14 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.ksp.subitesv.R;
 import com.ksp.subitesv.actividades.MainActivity;
+import com.ksp.subitesv.actividades.cliente.ActualizarPerfilActivity;
+import com.ksp.subitesv.actividades.cliente.HistorialReservaClienteActivity;
 import com.ksp.subitesv.actividades.cliente.MapClienteActivity;
 import com.ksp.subitesv.includes.AppToolBar;
 import com.ksp.subitesv.proveedores.AuthProveedores;
@@ -133,8 +136,14 @@ public class MapaConductorActivity extends AppCompatActivity implements OnMapRea
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mLocationCallback != null && mFusedLocation != null) {
+            mFusedLocation.removeLocationUpdates(mLocationCallback);
+        }
+
         if (mListener!=null){
-            mProveedorGeofire.isConductorTrabajando(mAuthProveedores.obetenerId()).removeEventListener(mListener);
+            if (mAuthProveedores.sesionExistente()) {
+                mProveedorGeofire.isConductorTrabajando(mAuthProveedores.obetenerId()).removeEventListener(mListener);
+            }
         }
     }
 
@@ -313,6 +322,14 @@ public class MapaConductorActivity extends AppCompatActivity implements OnMapRea
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_cerrarSesion) {
             cerrarSesion();
+        }
+        if (item.getItemId() == R.id.action_actualizar) {
+            Intent intent = new Intent(MapaConductorActivity.this, ActualizarPerfilConductorActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.action_Historial) {
+            Intent intent = new Intent(MapaConductorActivity.this, HistorialReservaConductorActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
