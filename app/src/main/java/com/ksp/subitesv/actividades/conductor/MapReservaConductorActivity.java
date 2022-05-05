@@ -17,6 +17,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
@@ -52,12 +53,14 @@ import com.ksp.subitesv.actividades.cliente.DetallesSolicitudActivity;
 import com.ksp.subitesv.actividades.cliente.SolicitarConductorActivity;
 import com.ksp.subitesv.modulos.FCMCuerpo;
 import com.ksp.subitesv.modulos.FCMRespuesta;
+import com.ksp.subitesv.modulos.Info;
 import com.ksp.subitesv.modulos.ReservaCliente;
 import com.ksp.subitesv.proveedores.AuthProveedores;
 import com.ksp.subitesv.proveedores.GoogleApiProveedor;
 import com.ksp.subitesv.proveedores.NotificacionProveedor;
 import com.ksp.subitesv.proveedores.ProveedorCliente;
 import com.ksp.subitesv.proveedores.ProveedorGeoFire;
+import com.ksp.subitesv.proveedores.ProveedorInfo;
 import com.ksp.subitesv.proveedores.ReservaClienteProveedor;
 import com.ksp.subitesv.proveedores.TokenProveedor;
 import com.ksp.subitesv.utils.DecodificadorPuntos;
@@ -99,6 +102,7 @@ public class MapReservaConductorActivity extends AppCompatActivity implements On
     private TextView mTextViewEmailReservaCliente;
     private TextView mTextViewOrigenReservaCliente;
     private TextView mTextViewDestinoReservaCliente;
+    private  TextView mTextViewTiempo;
     private ImageView mImageViewReservaCliente;
 
     private String mExtraClienteId;
@@ -107,14 +111,46 @@ public class MapReservaConductorActivity extends AppCompatActivity implements On
     private LatLng mDestinationLatLng;
 
     private GoogleApiProveedor mGoogleApiProvider;
+    private ProveedorInfo mProveedorInfo;
     private List<LatLng> mPolylineList;
     private PolylineOptions mPolylineOptions;
+
+    private  Info mInfo;
 
     private boolean mPrimeraVez = true;
     private boolean mEstaCercadelCliente=false;
 
     private Button mButtonIniciarReserva;
     private Button mButtonTerminarReserva;
+
+    double mDistanciaEnMetros = 1;
+    int mMinutos = 0;
+    int mSegundos = 0;
+    Boolean mSegundosHanTerminado = false;
+    Boolean mInicioViaje = false;
+    Handler  mHandler = new Handler();
+    Location mUbicacionAnterior = new Location("");
+
+    Runnable runnable = new Runnable() {//CREACION CRONOMETRO
+        @Override
+        public void run() {
+            mSegundos ++;//Incrementar en uno en uno
+
+            if(!mSegundosHanTerminado){
+                mTextViewTiempo.setText(mSegundos + " Seg");
+            }else{
+                mTextViewTiempo.setText(mMinutos + " Min " + mSegundos);
+            }
+
+            if(mSegundos == 59){
+                mSegundos = 0;
+                mSegundosHanTerminado = true;
+                mMinutos ++;
+            }
+            mHandler.postDelayed(runnable,1000);
+
+        }
+    };
 
 
 
@@ -129,6 +165,13 @@ public class MapReservaConductorActivity extends AppCompatActivity implements On
                     if (mMarker != null) {
                         mMarker.remove();
                     }
+
+                    if(mInicioViaje){
+                        mDistanciaEnMetros = mDistanciaEnMetros + mUbicacionAnterior.distanceTo(location);
+                        Log.d("DISTANCIA","Distancia recorrida: " +mDistanciaEnMetros);
+                    }
+                    mUbicacionAnterior = location;
+
                     mMarker = mMap.addMarker(new MarkerOptions().position(
                             new LatLng(location.getLatitude(), location.getLongitude())
                             )
@@ -166,6 +209,7 @@ public class MapReservaConductorActivity extends AppCompatActivity implements On
         mReservaClienteProveedor = new ReservaClienteProveedor();
         mNotificacionProveedor = new NotificacionProveedor();
         mFusedLocation = LocationServices.getFusedLocationProviderClient(this);
+        mProveedorInfo = new ProveedorInfo();
 
         SupportMapFragment mMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mMapFragment.getMapAsync(this);
@@ -177,9 +221,10 @@ public class MapReservaConductorActivity extends AppCompatActivity implements On
         mButtonIniciarReserva=findViewById(R.id.btnComezarReserva);
         mButtonTerminarReserva=findViewById(R.id.btnTerminarReserva);
         mImageViewReservaCliente = findViewById(R.id.imageViewReservaCliente);
+        mTextViewTiempo = findViewById(R.id.textViewTiempo);
 
         //mButtonIniciarReserva.setEnabled(false);
-
+        obtenerInfo();
         mExtraClienteId = getIntent().getStringExtra("clienteId");
         mGoogleApiProvider = new GoogleApiProveedor(MapReservaConductorActivity.this);
 
@@ -205,18 +250,70 @@ public class MapReservaConductorActivity extends AppCompatActivity implements On
         });
     }
 
-    private void terminarReserva(){
-        mReservaClienteProveedor.actualizarEstado(mExtraClienteId,"Finalizar");
-        mReservaClienteProveedor.actualizarIdHistorialReserva(mExtraClienteId);
-        enviarNotificacion("viaje finalizado");
-        if (mFusedLocation != null){
-            mFusedLocation.removeLocationUpdates(mLocationCallback);
+    private void calcularViaje(){
+
+        if(mMinutos == 0){
+            mMinutos = 1;
         }
-        mProveedorGeofire.removerUbicacion(mAuthProveedores.obetenerId());
-        Intent intent = new Intent(MapReservaConductorActivity.this,CalificacionClienteActivity.class);
-        intent.putExtra("clienteId",mExtraClienteId);
-        startActivity(intent);
-        finish();
+        double precioMin = mMinutos * mInfo.getMin();
+        double precioKm = (mDistanciaEnMetros / 1000) * mInfo.getKm();
+
+        Log.d("VALORES", "Min total: " + mMinutos);
+        Log.d("VALORES", "KM total: " + (mDistanciaEnMetros/1000));
+
+
+       final double total = precioMin + precioKm;
+        mReservaClienteProveedor.actualizarPrecio(mExtraClienteId,total).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                mReservaClienteProveedor.actualizarEstado(mExtraClienteId,"Finalizar");
+                Intent intent = new Intent(MapReservaConductorActivity.this,CalificacionClienteActivity.class);
+                intent.putExtra("clienteId",mExtraClienteId);
+                intent.putExtra("precio", total);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+    }
+
+
+    private void obtenerInfo() {//Funcion para calcular el precio del viaje
+        mProveedorInfo.obtenerInfo().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    mInfo = snapshot.getValue(Info.class);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void terminarReserva(){
+        mReservaClienteProveedor.actualizarIdHistorialReserva(mExtraClienteId).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                enviarNotificacion("viaje finalizado");
+                if (mFusedLocation != null){
+                    mFusedLocation.removeLocationUpdates(mLocationCallback);
+                }
+                mProveedorGeofire.removerUbicacion(mAuthProveedores.obetenerId());
+                if(mHandler != null){
+                    mHandler.removeCallbacks(runnable);
+                }
+
+                calcularViaje();
+            }
+        });
+
+
+
+
     }
 
     private void comenzarReserva(){
@@ -227,6 +324,8 @@ public class MapReservaConductorActivity extends AppCompatActivity implements On
         mMap.addMarker(new MarkerOptions().position(mDestinationLatLng).title("Destino").icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_pin_blue)));
         drawRoute(mDestinationLatLng);
         enviarNotificacion("viaje iniciado");
+        mInicioViaje = true;//Para saber que el conductor ya inicio el viaje
+        mHandler.postDelayed(runnable,1000);//Iniciar temporizador
     }
 
     private double obtenerDistanciaEntre(LatLng ClienteLatlng, LatLng ConductorLatlng){

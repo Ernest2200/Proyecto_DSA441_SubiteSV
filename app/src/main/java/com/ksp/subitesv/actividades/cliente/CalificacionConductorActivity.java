@@ -30,6 +30,7 @@ public class CalificacionConductorActivity extends AppCompatActivity {
 
     private TextView mTextViewOrigen;
     private TextView mTextViewDestino;
+    private TextView mTextViewPrecio;
     private RatingBar mBarraCalificacion;
     private Button mBotonCalificacion;
 
@@ -49,6 +50,7 @@ public class CalificacionConductorActivity extends AppCompatActivity {
 
         mTextViewOrigen = findViewById(R.id.textViewCalificacionOrigen);
         mTextViewDestino = findViewById(R.id.textViewCalificacionDestino);
+        mTextViewPrecio = findViewById(R.id.textViewPrecio);
         mBarraCalificacion = findViewById(R.id.barraCalificacion);
         mBotonCalificacion = findViewById(R.id.btnCalificacion);
         mProveedorHistorialReserva = new ProveedorHistorialReserva();
@@ -78,6 +80,7 @@ public class CalificacionConductorActivity extends AppCompatActivity {
                 if (snapshot.exists()){
                     ReservaCliente reservaCliente = snapshot.getValue(ReservaCliente.class);
                     mTextViewOrigen.setText(reservaCliente.getOrigen());
+                    mTextViewPrecio.setText(String.format("%.1f", reservaCliente.getPrecio()) + "$");
                     mTextViewDestino.setText(reservaCliente.getDestino());
                     mHistorialReserva= new HistorialReserva(
                             reservaCliente.getIdHistorialReserva(),
