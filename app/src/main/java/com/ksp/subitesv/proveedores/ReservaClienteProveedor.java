@@ -30,6 +30,12 @@ public class ReservaClienteProveedor {
         map.put("idHistorialReserva", idPush);
         return  mBasedeDatos.child(idReservaCliente).updateChildren(map);
     }
+    public Task<Void> actualizarPrecio(String idReservaCliente, double precio){
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("precio", precio);
+        return  mBasedeDatos.child(idReservaCliente).updateChildren(map);
+    }
 
     public DatabaseReference obtenerStado(String idReservaCliente){
         return  mBasedeDatos.child(idReservaCliente).child("estado");
