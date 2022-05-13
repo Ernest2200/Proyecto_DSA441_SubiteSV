@@ -1,5 +1,6 @@
 package com.ksp.subitesv.actividades.cliente;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,9 +22,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.SquareCap;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.ksp.subitesv.R;
 import com.ksp.subitesv.includes.AppToolBar;
+import com.ksp.subitesv.modulos.Info;
 import com.ksp.subitesv.proveedores.GoogleApiProveedor;
+import com.ksp.subitesv.proveedores.ProveedorInfo;
 import com.ksp.subitesv.utils.DecodificadorPuntos;
 
 import org.json.JSONArray;
@@ -49,13 +55,14 @@ public class DetallesSolicitudActivity extends AppCompatActivity implements OnMa
     private LatLng mDestinationLatLng;
 
     private GoogleApiProveedor mGoogleApiProvider;
+    private ProveedorInfo mProveedorInfo;
     private List<LatLng> mPolylineList;
     private PolylineOptions mPolylineOptions;
 
     private TextView mTextViewOrigin;
     private TextView mTextViewDestination;
     private TextView mTextViewTime;
-    private TextView mTextViewDistance;
+    private TextView mTextViewPrice;
 
     private Button mButtonRequest;
 
@@ -84,11 +91,12 @@ public class DetallesSolicitudActivity extends AppCompatActivity implements OnMa
 
 
         mGoogleApiProvider = new GoogleApiProveedor(DetallesSolicitudActivity.this);
+        mProveedorInfo = new ProveedorInfo();
 
         mTextViewOrigin = findViewById(R.id.textViewOrigin);
         mTextViewDestination = findViewById(R.id.textViewDestination);
         mTextViewTime = findViewById(R.id.textViewTime);
-        mTextViewDistance = findViewById(R.id.textViewDistance);
+        mTextViewPrice = findViewById(R.id.textViewPrice);
         mButtonRequest = findViewById(R.id.btnRequestNow);
 
         mTextViewOrigin.setText(mExtraOrigin);
@@ -151,8 +159,15 @@ public class DetallesSolicitudActivity extends AppCompatActivity implements OnMa
                     JSONObject duration = leg.getJSONObject("duration");
                     String distanceText = distance.getString("text");
                     String durationText = duration.getString("text");
-                    mTextViewTime.setText(durationText);
-                    mTextViewDistance.setText(distanceText);
+                    mTextViewTime.setText(durationText + " " + distanceText);
+
+                    String[] distanciaYkm = distanceText.split(" ");
+                    double valorDistancia = Double.parseDouble(distanciaYkm[0]) ;
+
+                    String[] duracionYmins = durationText.split(" ");
+                    double valorDuracion = Double.parseDouble(duracionYmins[0]) ;
+
+                    calcularPrecio(valorDistancia, valorDuracion);
 
                 } catch(Exception e) {
                     Log.d("Error", "Error encontrado " + e.getMessage());
@@ -165,6 +180,29 @@ public class DetallesSolicitudActivity extends AppCompatActivity implements OnMa
             }
         });
     }
+
+    private void calcularPrecio(double valorDistancia, double valorDuracion) {//Funcion para calcular el precio del viaje
+        mProveedorInfo.obtenerInfo().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    Info info = snapshot.getValue(Info.class);
+                    double totalDistancia = valorDistancia * info.getKm();
+                    double totalDuracion = valorDuracion * info.getMin();
+                    double total = totalDistancia + totalDuracion;
+                    double minTotal =  Math.round(total - 0.5);
+                    double maxTotal =  Math.round(total + 0.5);
+                    mTextViewPrice.setText(minTotal + " - " + maxTotal + " $");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;

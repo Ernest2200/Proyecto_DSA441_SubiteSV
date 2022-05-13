@@ -14,6 +14,7 @@ public class ReservaCliente {
     double origenLng;
     double destinoLat;
     double destinoLng;
+    double precio;
 
     public ReservaCliente(){
 
@@ -33,6 +34,21 @@ public class ReservaCliente {
         this.destinoLng = destinoLng;
     }
 
+    public ReservaCliente(String idHistorialReserva, String idCliente, String idConductor, String destino, String origen, String tiempo, String km, String estado, double origenLat, double origenLng, double destinoLat, double destinoLng, double precio) {
+        this.idHistorialReserva = idHistorialReserva;
+        this.idCliente = idCliente;
+        this.idConductor = idConductor;
+        this.destino = destino;
+        this.origen = origen;
+        this.tiempo = tiempo;
+        this.km = km;
+        this.estado = estado;
+        this.origenLat = origenLat;
+        this.origenLng = origenLng;
+        this.destinoLat = destinoLat;
+        this.destinoLng = destinoLng;
+        this.precio = precio;
+    }
 
     public String getIdHistorialReserva() {
         return idHistorialReserva;
@@ -128,5 +144,13 @@ public class ReservaCliente {
 
     public void setDestinoLng(double destinoLng) {
         this.destinoLng = destinoLng;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 }

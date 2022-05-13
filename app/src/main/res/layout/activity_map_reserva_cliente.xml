@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         app:contentPadding="15dp"
         android:layout_margin="20dp"
-        app:cardBackgroundColor="@color/colorPrimarioDark"
+        app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="20dp"
         >
 
@@ -27,11 +27,10 @@
 
     <fragment
         android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="150dp"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        />
+        android:layout_marginBottom="150dp" />
 
     <io.github.florent37.shapeofview.shapes.BubbleView
         android:layout_width="match_parent"

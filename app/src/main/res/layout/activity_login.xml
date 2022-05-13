@@ -25,7 +25,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimarioDark" />
+                android:background="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textViewNameBookingDetail"
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:text="INGRESAR"
                 android:background="@drawable/rounded_button"
-                android:backgroundTint="@color/colorPrimary"
+                app:backgroundTint="@color/anaranjado"
                 android:layout_margin="30dp"
                 android:textColor="@color/white" />
 

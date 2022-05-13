@@ -30,6 +30,7 @@ public class CalificacionClienteActivity extends AppCompatActivity {
 
     private TextView mTextViewOrigen;
     private TextView mTextViewDestino;
+    private TextView mTextViewPrecio;
     private RatingBar mBarraCalificacion;
     private Button mBotonCalificacion;
 
@@ -41,6 +42,7 @@ public class CalificacionClienteActivity extends AppCompatActivity {
     private ProveedorHistorialReserva mProveedorHistorialReserva;
 
     private float mCalificacion = 0;
+    private  double mPrecioExtra = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +51,17 @@ public class CalificacionClienteActivity extends AppCompatActivity {
 
         mTextViewOrigen = findViewById(R.id.textViewCalificacionOrigen);
         mTextViewDestino = findViewById(R.id.textViewCalificacionDestino);
+        mTextViewPrecio = findViewById(R.id.textViewPrecio);
         mBarraCalificacion = findViewById(R.id.barraCalificacion);
         mBotonCalificacion = findViewById(R.id.btnCalificacion);
         mProveedorHistorialReserva = new ProveedorHistorialReserva();
 
         mReservaClienteProveedor = new ReservaClienteProveedor();
         mExtraClienteId = getIntent().getStringExtra("clienteId");
+
+        mPrecioExtra = getIntent().getDoubleExtra("precio",0);
+
+        mTextViewPrecio.setText(String.format("%.1f", mPrecioExtra) + "$");
 
         mBarraCalificacion.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
