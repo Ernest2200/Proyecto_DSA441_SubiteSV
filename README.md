@@ -1,5 +1,5 @@
-# Proyecto_DSA441_SubiteSV PORCENTAJE ALCANZADO 100%
-
+# Proyecto_DSA441_SubiteSV 
+# PORCENTAJE ALCANZADO 100%
 
 
 ## Herramientas 🛠️
@@ -30,7 +30,7 @@ Usted puede copiar, modificar, distribuir y realizar el trabajo, incluso con fin
 
 * [Tablero en Trello] https://trello.com/b/gEmv05px/proyecto-de-catedra-dsa441
 * [Diseño Mock-ups] https://framer.com/projects/DSA-Android--xvJDeZ3woqKuo6nqXjwy-4YJJ5  **NOTA -- Para acceder a ver las pantallas se necesita registrarse.
-* [Video Funcionamiento Aplicacion] https://youtu.be/cz0ve-a6w1o 🎬
+* [Video Explicativo] https://www.youtube.com/watch?v=pJBX0pFf3E0 🎬
 * [Manual Tecnico] https://drive.google.com/file/d/1z3_4td39bJE1Yxf20xqZJLwTBMRXT0aa/view?usp=sharing 
-* [Manual de Usuario] https://drive.google.com/file/d/1EJ22JSNVJ-83CEF---lZbHCv_f9gzZPh/view?usp=sharing 
+* [Manual de Usuario] https://drive.google.com/file/d/1TpL9CRPM6cKQVzW5uevgGesAuymbzCVK/view?usp=sharing
 * [App FakeGPS para realizar pruebas] https://play.google.com/store/apps/details?id=com.lexa.fakegps
